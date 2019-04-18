@@ -10,7 +10,7 @@
     </head>
     <body>
 
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
 
                 <nav class="navbar navbar-expand navbar-dark bg-dark col-md-12">
@@ -22,14 +22,14 @@
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Cadastrar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() .'index.php/Prova/cadastrar' ?>">Cadastrar</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Visualizar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() .'index.php/Prova/listar' ?>">Visualizar</a>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-md-0">
-                            <input class="form-control" type="text" placeholder="Search">
+                            <input class="form-control" type="text" placeholder="Buscar...">
                         </form>
                     </div>
                 </nav>
