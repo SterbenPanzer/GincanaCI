@@ -1,6 +1,7 @@
 <!DOCKTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -13,7 +14,7 @@
             <div class="row">
 
                 <nav class="navbar navbar-expand navbar-dark bg-dark col-md-12">
-                    <a class="navbar-brand" href="#">Cadastro de Provas</a>
+                    <a class="navbar-brand" href="<?= $this->config->base_url() . 'index.php/Prova/cadastrar' ?>">Cadastro de Provas</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -21,10 +22,10 @@
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() .'index.php/Prova/cadastrar' ?>">Cadastrar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/cadastrar' ?>"><i class="far fa-edit mr-1"></i>Cadastrar</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() .'index.php/Prova/listar' ?>">Visualizar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/listar' ?>"><i class="far fa-sticky-note mr-1"></i>Visualizar</a>
                             </li>
                         </ul>
                         <form class="form-inline my-2 my-md-0">
@@ -34,40 +35,48 @@
                 </nav>
 
             </div> 
-            <?php
-            $mensagem = $this->session->flashdata('mensagem');
-            if (isset($mensagem)) {
-                echo $mensagem;
-            }
-            ?>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Tempo</th>
-                        <th>Descrição</th>
-                        <th>Número de Integrantes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($provas as $p) {
-                        echo '<tr>';
-                        echo '<td>' . $p->nome . '</td>';
-                        echo '<td>' . $p->tempo . '</td>';
-                        echo '<td>' . $p->descricao . '</td>';
-                        echo '<td>' . $p->NIntegrantes . '</td>';
-                        echo '<td>'
-                        . '<a href="' . $this->config->base_url() . 'index.php/Prova/alterar/' . $p->id . '"> Alterar </a>'
-                        . '/'
-                        . '<a href="' . $this->config->base_url() . 'index.php/Prova/deletar/' . $p->id . '"> Deletar </a>'
-                        . '</td>';
 
-                        echo '</tr>';
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <div class="alert alert-light mt-3" role="alert">
+                <?php
+                $mensagem = $this->session->flashdata('mensagem');
+                if (isset($mensagem)) {
+                    echo $mensagem;
+                }
+                ?>
+            </div>    
+
+
+            <div class='row mt-5'>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Tempo</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Número de integrantes</th>
+                            <th scope="col">Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($provas as $p) {
+                            echo '<tr>';
+                            echo '<td>' . $p->nome . '</td>';
+                            echo '<td>' . $p->tempo . '</td>';
+                            echo '<td>' . $p->descricao . '</td>';
+                            echo '<td>' . $p->NIntegrantes . '</td>';
+                            echo '<td>'
+                            . '<a class="btn btn-warning mr-3"  role="button"   href="' . $this->config->base_url() . 'index.php/Prova/alterar/' . $p->id . '"> Alterar </a>'
+                            . '<a class="btn btn-danger"  role="button"   href="' . $this->config->base_url() . 'index.php/Prova/deletar/' . $p->id . '"> Deletar </a>'
+                            . '</td>';
+
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </body>
 </html>
