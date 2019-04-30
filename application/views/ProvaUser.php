@@ -22,15 +22,22 @@
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/cadastrar' ?>"><i class="far fa-edit mr-1"></i>Cadastrar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'Prova/cadastrar' ?>"><i class="far fa-edit mr-1"></i>Cadastrar</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/listar' ?>"><i class="far fa-sticky-note mr-1"></i>Visualizar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'Prova/listar' ?>"><i class="far fa-sticky-note mr-1"></i>Visualizar</a>
                             </li>
                         </ul>
-                        <form class="form-inline my-2 my-md-0">
+                        <form class="form-inline mr-auto my-2">
                             <input class="form-control" type="text" placeholder="Buscar...">
                         </form>
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'User/sair' ?>">
+                                    <i class="fas fa-sign-out-alt"></i> Sair
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
 
@@ -65,9 +72,9 @@
                             echo '<td>' . $p->tempo . '</td>';
                             echo '<td>' . $p->descricao . '</td>';
                             echo '<td>' . $p->NIntegrantes . '</td>';
-                            echo '<td>'
-                            . '<a class="btn btn-warning mr-3"  role="button"   href="' . $this->config->base_url() . 'index.php/Prova/alterar/' . $p->id . '"> Alterar </a>'
-                            . '<a class="btn btn-danger"  role="button"   href="' . $this->config->base_url() . 'index.php/Prova/deletar/' . $p->id . '"> Deletar </a>'
+                            echo '<td class="text-right">'
+                            . '<a class="btn btn-sm btn-outline-secondary mr-2"  role="button"   href="' . $this->config->base_url() . 'Prova/alterar/' . $p->id . '"><i class="fas fa-pen"></i> Alterar </a>'
+                            . '<a class="btn btn-sm btn-outline-secondary "  role="button"   href="' . $this->config->base_url() . 'Prova/deletar/' . $p->id . '"><i class="fas fa-times"></i> Deletar </a>'
                             . '</td>';
 
                             echo '</tr>';

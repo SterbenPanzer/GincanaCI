@@ -23,15 +23,22 @@
                     <div class="collapse navbar-collapse" id="navbarsExample02">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/cadastrar' ?>"><i class="far fa-edit mr-1"></i>Cadastrar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'Prova/cadastrar' ?>"><i class="far fa-edit mr-1"></i>Cadastrar</a>
                             </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="<?= $this->config->base_url() . 'index.php/Prova/listar' ?>"><i class="far fa-sticky-note mr-1"></i>Visualizar</a>
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'Prova/listar' ?>"><i class="far fa-sticky-note mr-1"></i>Visualizar</a>
                             </li>
                         </ul>
-                        <form class="form-inline my-2 my-md-0">
+                        <form class="form-inline mr-auto my-2">
                             <input class="form-control" type="text" placeholder="Buscar...">
                         </form>
+                        <ul class="navbar-nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= $this->config->base_url() . 'User/sair' ?>">
+                                    <i class="fas fa-sign-out-alt"></i> Sair
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </nav>
 
@@ -47,10 +54,13 @@
             </div>
 
             <div class='row mt-5'>
-                <div class='col-md-12'>
+                <div class="col-md-3"></div>
+                <div class='col-md-6'>
                     <div class='card'>
                         <div class='card-body'>
                             <form acttion="" method="POST">
+                                <h2>Formulário de provas</h2>
+                                <br>
                                 <input class="form-control form-control-lg" type="hidden" name='id' id='id' value='<?= (isset($prova)) ? $prova->id : ''; ?>' >
                                 <label for="nome">Nome:</label>
                                 <input  class="form-control form-control-lg" type="text" name="nome" id="nome"  value="<?= (isset($prova)) ? $prova->nome : ''; ?> ">
