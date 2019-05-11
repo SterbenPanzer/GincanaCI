@@ -1,0 +1,11 @@
+#Isto é um comentário do htaccess
+#este arquivo é lido pelo apache antes de qualquer requisição
+#e nele é possivel fazer configurações do apache baseado em regras
+
+#rewrite é um método do Apache para reescrita da URLs
+#Este código Rewrite reescreve a URL inserindo manualmente
+#o index.php na URL digitada pra compatibilizar com o Codeigniter
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
