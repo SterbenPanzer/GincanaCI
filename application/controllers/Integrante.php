@@ -113,4 +113,17 @@ class Integrante extends CI_Controller {
         }
     }
 
+    public function deletar($id) {
+        If ($id > 0) {
+            $this->load->model('Integrante_model');
+            //Manda para o model deletar e já valida o retorno para ver se deu certo. 
+            if ($this->Integrante_model->delete($id)) {
+                $this->session->set_flashdata('mensagem', 'Integrante deletado com sucesso!!!');
+            } else {
+                $this->session->set_flashdata('mensagem', 'Erro ao deletar integrante...');
+            }
+        }
+        redirect('Integrante/listarIntegrante');
+    }
+
 }

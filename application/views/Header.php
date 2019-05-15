@@ -42,7 +42,8 @@
                         <a href="#" id="menuPontuacao" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Pontuação</a>
                         <div class="dropdown-menu" aria-labelledby="menuPontuacao">
                             <a class="dropdown-item" href="<?= $this->config->base_url() . 'Pontuacao/cadastrar' ?>">Cadastrar</a>
-                            <a class="dropdown-item" href="<?= $this->config->base_url() . 'Pontuacao/listarPontuacao' ?>">Visualizar</a>
+                            <a class="dropdown-item" href="<?= $this->config->base_url() . 'Pontuacao/listarPontuacao' ?>">Pontuações Por Prova</a>
+                            <a class="dropdown-item" href="<?= $this->config->base_url() . 'Pontuacao/listarPontuacaoGeral' ?>">Pontuação Geral</a>
                         </div>
                     </li>
                 </ul>

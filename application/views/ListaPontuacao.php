@@ -2,7 +2,7 @@
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Visualização de pontuações</li>
+            <li class="breadcrumb-item active" aria-current="page">Visualização de Pontuações Por Prova</li>
         </ol>
     </nav>
     <div class="alert alert-light mt-3 " role="alert">
@@ -28,8 +28,8 @@
                 foreach ($pontuacoes as $p) {
                     echo '<tr>';
                     echo '<td>' . $p->nomee . '</td>';
-                    echo '<td>' . $p->id_prova . '</td>';
-                    echo '<td>' . $p->pontos . '</td>';
+                    echo '<td>' . $p->nomep . '</td>';
+                    echo '<td>' . $p->pontosT . '</td>';
                     echo '<td>'
                     . '<a class="btn btn-sm btn-outline-secondary mr-2"  role="button"   href="' . $this->config->base_url() . 'Pontuacao/alterar/' . $p->id . '"><i class="fas fa-pen"></i> Alterar </a>'
                     . '<a class="btn btn-sm btn-outline-secondary "  role="button"   href="' . $this->config->base_url() . 'Pontuacao/deletar/' . $p->id . '"><i class="fas fa-times"></i> Deletar </a>'
