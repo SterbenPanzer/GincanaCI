@@ -4,10 +4,9 @@ class Pontuacao_model extends CI_Model {
 
     //Método que realiza a busca de todos as pontuações das equipes no Banco de Dados.
     public function getAll() {
-        $this->db->select('pontuacao.*,sum(pontos) as pontosT,equipe.nome as nomee,prova.nome as nomep');
+        $this->db->select('pontuacao.*,pontos as pontosT,equipe.nome as nomee,prova.nome as nomep');
         $this->db->join('equipe', 'equipe.id = pontuacao.id_equipe', 'inner');
         $this->db->join('prova', 'prova.id = pontuacao.id_prova', 'inner');
-        $this->db->group_by('nomep,nomee');
         //Pega a tabela equipe no Banco de Dados.
         $query = $this->db->get('pontuacao');
         //Retorna em formato de array
@@ -48,7 +47,7 @@ class Pontuacao_model extends CI_Model {
         $this->db->join('equipe', 'equipe.id = pontuacao.id_equipe', 'inner');
         $this->db->join('prova', 'prova.id = pontuacao.id_prova', 'inner');
         $this->db->order_by('pontosT', 'desc');
-        $this->db->group_by('');
+        $this->db->group_by('nomee');
         //Pega a tabela pontuacao no Banco de Dados.
         $query = $this->db->get('pontuacao');
         //Retorna em formato de array

@@ -3,22 +3,22 @@
 defined('BASEPATH') OR exit('No direct script acces allowed');
 
 class Prova extends CI_Controller {
-    
-    public function __construct(){
+
+    public function __construct() {
         parent:: __construct();
-        
+
         $this->load->model('User_model');
         $this->User_model->verificaLogin();
-}
+        $this->load->model('Prova_model');
+    }
 
     public function index() {
         $this->listar();
     }
 
     public function listar() {
-        $this->load->model('Prova_model', 'pm');
 
-        $data['provas'] = $this->pm->getAll();
+        $data['provas'] = $this->Prova_model->getAll();
 
         $this->load->view('Header');
         $this->load->view('ProvaUser', $data);
@@ -36,7 +36,6 @@ class Prova extends CI_Controller {
             $this->load->view('FormProva');
             $this->load->view('Footer');
         } else {
-            $this->load->model('Prova_model');
 
             $data = array(
                 'nome' => $this->input->post('nome'),
@@ -58,7 +57,6 @@ class Prova extends CI_Controller {
 
     public function alterar($id) {
         if ($id > 0) {
-            $this->load->model('Prova_model');
 
             $this->form_validation->set_rules('nome', 'nome', 'required');
             $this->form_validation->set_rules('tempo', 'tempo', 'required');
@@ -95,7 +93,6 @@ class Prova extends CI_Controller {
 
     public function deletar($id) {
         If ($id > 0) {
-            $this->load->model('Prova_model');
             //Manda para o model deletar e ja valida o retorno para ver se deu certo 
             if ($this->Prova_model->delete($id)) {
                 $this->session->set_flashdata('mensagem', 'Prova deletada com sucesso!!!');

@@ -11,6 +11,8 @@ class Integrante extends CI_Controller {
         //Chama o método que faz a validação de login do usuário.
         $this->load->model('User_model');
         $this->User_model->verificaLogin();
+        $this->load->model('Integrante_model');
+        $this->load->model('Equipe_model');
     }
 
     public function index() {
@@ -18,11 +20,9 @@ class Integrante extends CI_Controller {
     }
 
     public function listarIntegrante() {
-        //Carrega pelo nome e apelido.
-        $this->load->model('Integrante_model', 'im');
         //$data tem que ser em formato de array para passa para a view 
         //por isso chamamos a função getALL do Integrante_model.
-        $data['integrantes'] = $this->im->getAll();
+        $data['integrantes'] = $this->Integrante_model->getAll();
 
         //Carrega a view passando o conteúdo da variável $data.
         $this->load->view('Header');
@@ -38,7 +38,6 @@ class Integrante extends CI_Controller {
         $this->form_validation->set_rules('rg', 'rg', 'required');
         $this->form_validation->set_rules('cpf', 'cpf', 'required');
 
-        $this->load->model('Integrante_model');
         //verifica se os dados foram atendidos corretamente.
         if ($this->form_validation->run() == false) {
             $data['equipes'] = $this->Integrante_model->getEquipe();
@@ -70,7 +69,6 @@ class Integrante extends CI_Controller {
 
     public function alterar($id) {
         if ($id > 0) {
-            $this->load->model('Integrante_model');
 
             //cria as regras de validação do formulário.
             $this->form_validation->set_rules('nome', 'nome', 'required');
@@ -80,9 +78,8 @@ class Integrante extends CI_Controller {
             $this->form_validation->set_rules('cpf', 'cpf', 'required');
             //valida se o formulario ja foi preenchida
             if ($this->form_validation->run() == false) {
-                $this->load->model('Equipe_model', 'em');
 
-                $data['equipes'] = $this->em->getAll();
+                $data['equipes'] = $this->Equipe_model->getAll();
                 //Monta a variavel data para mandar dados para a view e chama o metodo getOne do integrante model
                 //para resgatar os dados do integrante a ser alterado.
                 $data['integrante'] = $this->Integrante_model->getOne($id);
@@ -115,7 +112,6 @@ class Integrante extends CI_Controller {
 
     public function deletar($id) {
         If ($id > 0) {
-            $this->load->model('Integrante_model');
             //Manda para o model deletar e já valida o retorno para ver se deu certo. 
             if ($this->Integrante_model->delete($id)) {
                 $this->session->set_flashdata('mensagem', 'Integrante deletado com sucesso!!!');

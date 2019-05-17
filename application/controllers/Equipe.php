@@ -11,6 +11,7 @@ class Equipe extends CI_Controller {
         //Chama o método que faz a validação de login do usuário.
         $this->load->model('User_model');
         $this->User_model->verificaLogin();
+        $this->load->model('Equipe_model');
     }
 
     public function index() {
@@ -18,17 +19,16 @@ class Equipe extends CI_Controller {
     }
 
     public function listarEquipe() {
-        //Carrega pelo nome e apelido.
-        $this->load->model('Equipe_model', 'em');
         //$data tem que ser em formato de array para passa para a view 
         //por isso chamamos a função getALL do Equipe_model.
-        $data['equipes'] = $this->em->getAll();
+        $data['equipes'] = $this->Equipe_model->getAll();
 
         //Carrega a view passando o conteúdo da variável $data.
         $this->load->view('Header');
         $this->load->view('ListaEquipe', $data);
         $this->load->view('Footer');
     }
+    
 
     public function cadastrar() {
         //Regras de validação.
@@ -41,18 +41,35 @@ class Equipe extends CI_Controller {
             $this->load->view('FormEquipe');
             $this->load->view('Footer');
         } else {
-            //Carrega o model.
-            $this->load->model('Equipe_model');
             //Resgata os dados por post.
             $data = array(
                 'nome' => $this->input->post('nome'),
             );
+
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;
+            $config['encrypt_name'] = true;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('userfile')) {
+                //Cria uma sessão com o error e redireciona
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('mensagem', '<div class="alert alert-succsess">' . $error . '</div>');
+                redirect('Equipe/cadastrar');
+                exit();
+            } else {
+                //Pega o nome do arquivo que foi enviado e adiciona no array $data
+                $data['imagem'] = $this->upload->data('file_name');
+            }
+
             //Chama o método insert do Model passando os dados a inserir, e já valida se teve linhas afetadas.
             if ($this->Equipe_model->insert($data)) {
                 //Salva uma mensagem rapida na sessão.
                 $this->session->set_flashdata('mensagem', 'Equipe cadastrada com sucesso!!!');
                 redirect('equipe/listarEquipe');
             } else {
+                unlink('./uploads/' . $data['imagem']);
                 $this->session->set_flashdata('mensagem', 'Erro ao cadastrar equipe!!!');
                 redirect('equipe/cadastrar');
             }
@@ -61,7 +78,6 @@ class Equipe extends CI_Controller {
 
     public function alterar($id) {
         if ($id > 0) {
-            $this->load->model('Equipe_model');
 
             //cria as regras de validação do formulário.
             $this->form_validation->set_rules('nome', 'nome', 'required');
@@ -78,6 +94,23 @@ class Equipe extends CI_Controller {
                 $data = array(
                     'nome' => $this->input->post('nome'),
                 );
+                
+                  $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_width'] = 1024;
+            $config['max_height'] = 768;
+            $config['encrypt_name'] = true;
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('userfile')) {
+                //Cria uma sessão com o error e redireciona
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('mensagem', '<div class="alert alert-succsess">' . $error . '</div>');
+                redirect('Equipe/cadastrar');
+                exit();
+            } else {
+                //Pega o nome do arquivo que foi enviado e adiciona no array $data
+                $data['imagem'] = $this->upload->data('file_name');
+            }
 
                 //chama o método update do Equipe_model e já valida se teve linhas afetadas.
                 if ($this->Equipe_model->update($id, $data)) {
@@ -95,8 +128,8 @@ class Equipe extends CI_Controller {
 
     public function deletar($id) {
         If ($id > 0) {
-            $this->load->model('Equipe_model');
-            //Manda para o model deletar e já valida o retorno para ver se deu certo. 
+            //Manda para o model deletar e já valida o retorno para ver se deu certo.
+            unlink('./uploads/' . $data['imagem']);
             if ($this->Equipe_model->delete($id)) {
                 $this->session->set_flashdata('mensagem', 'Equipe deletada com sucesso!!!');
             } else {

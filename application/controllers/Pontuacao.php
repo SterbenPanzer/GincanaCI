@@ -11,6 +11,9 @@ class Pontuacao extends CI_Controller {
 //Chama o método que faz a validação de login do usuário.
         $this->load->model('User_model');
         $this->User_model->verificaLogin();
+        $this->load->model('Pontuacao_model');
+        $this->load->model('Equipe_model');
+        $this->load->model('Prova_model');
     }
 
     public function index() {
@@ -18,11 +21,9 @@ class Pontuacao extends CI_Controller {
     }
 
     public function listarPontuacao() {
-//Carrega pelo nome e apelido.
-        $this->load->model('Pontuacao_model', 'pm');
 //$data tem que ser em formato de array para passa para a view 
 //por isso chamamos a função getALL da Pontuacao_model.
-        $data['pontuacoes'] = $this->pm->getAll();
+        $data['pontuacoes'] = $this->Pontuacao_model->getAll();
 
 //Carrega a view passando o conteúdo da variável $data.
         $this->load->view('Header');
@@ -31,11 +32,9 @@ class Pontuacao extends CI_Controller {
     }
 
     public function listarPontuacaoGeral() {
-        //Carrega pelo nome e apelido.
-        $this->load->model('Pontuacao_model', 'pm');
 //$data tem que ser em formato de array para passa para a view 
 //por isso chamamos a função getALL da Pontuacao_model.
-        $data['pontuacoes'] = $this->pm->getAll();
+        $data['pontuacoes'] = $this->Pontuacao_model->getPontuacaoGeral();
 
 //Carrega a view passando o conteúdo da variável $data.
         $this->load->view('Header');
@@ -49,7 +48,6 @@ class Pontuacao extends CI_Controller {
         $this->form_validation->set_rules('id_prova', 'id_prova', 'required');
         $this->form_validation->set_rules('pontos', 'pontos', 'required');
 
-        $this->load->model('Pontuacao_model');
         //verifica se os dados foram atendidos corretamente.
         if ($this->form_validation->run() == false) {
             $data['equipes'] = $this->Pontuacao_model->getEquipe();
@@ -80,7 +78,6 @@ class Pontuacao extends CI_Controller {
 
     public function alterar($id) {
         if ($id > 0) {
-            $this->load->model('Pontuacao_model');
 
             //cria as regras de validação do formulário.
             $this->form_validation->set_rules('id_equipe', 'id_equipe', 'required');
@@ -88,11 +85,10 @@ class Pontuacao extends CI_Controller {
             $this->form_validation->set_rules('pontos', 'pontos', 'required');
             //valida se o formulario ja foi preenchida
             if ($this->form_validation->run() == false) {
-                $this->load->model('Equipe_model', 'em');
-                $this->load->model('Prova_model', 'pm');
 
-                $data['equipes'] = $this->em->getAll();
-                $data['provas'] = $this->pm->getAll();
+
+                $data['equipes'] = $this->Equipe_model->getAll();
+                $data['provas'] = $this->Prova_model->getAll();
                 //Monta a variavel data para mandar dados para a view e chama o metodo getOne da pontuacao model
                 //para resgatar os dados da pontuação a ser alterado.
                 $data['pontuacao'] = $this->Pontuacao_model->getOne($id);
@@ -123,7 +119,6 @@ class Pontuacao extends CI_Controller {
 
     public function deletar($id) {
         If ($id > 0) {
-            $this->load->model('Pontuacao_model');
             //Manda para o model deletar e já valida o retorno para ver se deu certo. 
             if ($this->Pontuacao_model->delete($id)) {
                 $this->session->set_flashdata('mensagem', 'Pontuação deletada com sucesso!!!');
