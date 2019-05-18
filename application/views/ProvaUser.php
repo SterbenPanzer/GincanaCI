@@ -14,7 +14,7 @@
         ?>
     </div>    
 
-    <div class='mt-5 table-responsive'>
+    <div class='mt-5 table-responsive shadow'>
         <table class="table">
             <thead class="thead-dark">
                 <tr>

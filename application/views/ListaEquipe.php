@@ -15,33 +15,19 @@
     </div>
     <div class="col-md-12">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-5">
-                <div class='mt-5 table-responsive shadow'>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Logo</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($equipes as $e) {
-                                echo '<tr>';
-                                echo '<td> <img class="img-fluid" style="max-height:60px; max-width:80px;" src="' .  $this->config->base_url() . 'uploads/' . $e->imagem . '"></td>';
-                                echo '<td>' . $e->nome . '</td>';
-                                echo '<td class="text-right">'
-                                . '<a class="btn btn-sm btn-outline-secondary mr-2"  role="button"   href="' . $this->config->base_url() . 'Equipe/alterar/' . $e->id . '"><i class="fas fa-pen"></i> Alterar </a>'
-                                . '<a class="btn btn-sm btn-outline-secondary "  role="button"   href="' . $this->config->base_url() . 'Equipe/deletar/' . $e->id . '"><i class="fas fa-times"></i> Deletar </a>'
-                                . '</td>';
-                                echo '</tr>';
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-2"></div>
+            <div class="col-7">
+                <?php
+                foreach ($equipes as $e) {
+
+                    echo '<button type="button" class="btn btn-light mr-4 mb-3 mt-4 shadow text-center"><img class="img-fluid mb-2" style="max-height:150px; max-width:150px;" src="' . $this->config->base_url() . 'uploads/' . $e->imagem . '">';
+                    echo '<hr>';
+                    echo '<h6 class="mb-5">' . $e->nome . '</h6>';
+                    echo '<a class="pl-2" href="' . $this->config->base_url() . 'Equipe/alterar/' . $e->id . '"><i class="fas fa-pen text-dark border rounded shadow-sm py-1 px-2"></i></a>';
+                    echo '<a class="pl-2 ml-2 mr-3" href="' . $this->config->base_url() . 'Equipe/deletar/' . $e->id . '"><i class="fas fa-times text-dark border rounded shadow-sm py-1 px-2"></i></a>';
+                    echo '</button>';
+                }
+                ?>
             </div>
         </div>
     </div>
